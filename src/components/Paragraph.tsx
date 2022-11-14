@@ -1,5 +1,5 @@
 type ParagraphType = {
-  correct?: boolean;
+  correct?: boolean | null;
   children: React.ReactNode;
 };
 export const Paragraph: React.FC<ParagraphType> = ({
