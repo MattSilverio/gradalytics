@@ -7,7 +7,11 @@
 
 Video Demo: 
 
-[Link público do repositório](https://github.com/MattSilverio/gradalytics>)
+[Link público do repositório](https://github.com/MattSilverio/gradalytics)
+
+***Opcionais
+
+[Link do Protótipo de telas](https://whimsical.com/GTsckRBf7iQuejV3nC3t49)
 
 [Link da Solução](https://proud-flower-008a5b40f.2.azurestaticapps.net)
 
