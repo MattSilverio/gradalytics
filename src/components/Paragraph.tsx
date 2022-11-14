@@ -1,10 +1,12 @@
 type ParagraphType = {
   correct?: boolean | null;
   children: React.ReactNode;
+  className?: string;
 };
 export const Paragraph: React.FC<ParagraphType> = ({
   correct = null,
   children,
+  className,
 }) => {
   const answerColor = () => {
     if (correct) return "text-green-500";
@@ -12,5 +14,5 @@ export const Paragraph: React.FC<ParagraphType> = ({
     return;
   };
 
-  return <p className={`${answerColor()} text-xl`}>{children}</p>;
+  return <p className={`${answerColor()} text-xl ${className}`}>{children}</p>;
 };

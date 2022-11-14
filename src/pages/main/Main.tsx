@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "../../components/Button";
-import { H1, H2 } from "../../components/Header";
+import { H2 } from "../../components/Header";
 import { Paragraph } from "../../components/Paragraph";
 import { QuizzButton } from "../../components/Quizz/Button";
 import { QuizzCounter } from "../../components/Quizz/Counter";
@@ -72,9 +72,7 @@ var newObj = questions.map((x) => ({ ...x, isAnswered: false }));
 
 export function Main() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isCorrect, setIsCorrect] = useState<boolean>();
   const [students, setStudents] = useState<StudentAnswers>([]);
-
   const [data, setData] = useState(newObj);
 
   const nextPage = () => setCurrentIndex(currentIndex + 1);
@@ -97,15 +95,26 @@ export function Main() {
     ]);
   };
 
+  const currentItem = data[currentIndex];
+
   return (
     <div className="h-screen flex flex-col justify-center items-center">
-      <QuizzCounter current={currentIndex + 1} total={newObj.length} />
-      <H2>{newObj[currentIndex].question}</H2>
+      <QuizzCounter current={currentIndex + 1} total={data.length} />
+      <H2>{currentItem.question}</H2>
       <div className="w-full grid gap-2 my-4 justify-items-center">
-        {newObj[currentIndex].answers.map((x) => {
+        {currentItem.answers.map((x) => {
+          const isCorrect = () => {
+            if (currentItem.isAnswered) {
+              if (!students[currentIndex].isCorrect) {
+                return x.correct;
+              }
+            }
+            return null;
+          };
           return (
             <QuizzButton
-              disabled={data[currentIndex].isAnswered}
+              correct={isCorrect()}
+              disabled={currentItem.isAnswered}
               key={x.id}
               onClick={() => onClick(x.correct)}
             >
@@ -115,22 +124,26 @@ export function Main() {
         })}
       </div>
       <div className="flex gap-2">
-        <Button previous onClick={previousPage} disabled={currentIndex === 0}>
-          {"<"} Anterior
-        </Button>
-        {data[currentIndex].isAnswered && (
-          <Button
-            next
-            onClick={nextPage}
-            disabled={currentIndex + 1 >= newObj.length}
-          >
-            Próximo {">"}{" "}
+        {currentIndex !== 0 && (
+          <Button previous onClick={previousPage} disabled={currentIndex === 0}>
+            {"<"} Anterior
           </Button>
         )}
+        <Button
+          className={currentItem.isAnswered ? "" : "hidden"}
+          next
+          onClick={nextPage}
+          disabled={currentIndex + 1 >= data.length}
+        >
+          Próximo {">"}{" "}
+        </Button>
       </div>
-      {data[currentIndex].isAnswered && (
-        <Paragraph correct={students[currentIndex].isCorrect}>
-          {data[currentIndex].explanation}
+      {currentItem.isAnswered && (
+        <Paragraph
+          className="fixed bottom-24"
+          correct={students[currentIndex].isCorrect}
+        >
+          {currentItem.explanation}
         </Paragraph>
       )}
     </div>
