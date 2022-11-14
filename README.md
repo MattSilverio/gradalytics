@@ -1,15 +1,15 @@
 ### Hello, We are Gradalytics !!
 
 # Entregaveis
-Video Pitch: https://youtu.be/-wN186bwIEo
+Video Pitch: <https://youtu.be/-wN186bwIEo>
 
-Apresentação: https://drive.google.com/file/d/1OmLIAnR-A8rzNkqM2oN2bUbM7mpvTG1w/view?usp=share_link
+Apresentação: <https://drive.google.com/file/d/1OmLIAnR-A8rzNkqM2oN2bUbM7mpvTG1w/view?usp=share_link>
 
 Video Demo: 
 
-Link público do repositório: https://github.com/MattSilverio/gradalytics
+Link público do repositório: <https://github.com/MattSilverio/gradalytics>
 
-Link da Solução: https://proud-flower-008a5b40f.2.azurestaticapps.net
+Link da Solução: <https://proud-flower-008a5b40f.2.azurestaticapps.net>
 
 
 ## Tecnologias Usadas 🤓💻🚀
