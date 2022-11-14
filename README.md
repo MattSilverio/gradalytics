@@ -9,7 +9,7 @@ Video Demo:
 
 [Link público do repositório](https://github.com/MattSilverio/gradalytics)
 
-***Opcionais
+### Opcionais
 
 [Link do Protótipo de telas](https://whimsical.com/GTsckRBf7iQuejV3nC3t49)
 
