@@ -5,6 +5,11 @@ import { Paragraph } from "../../components/Paragraph";
 import { QuizzButton } from "../../components/Quizz/Button";
 import { QuizzCounter } from "../../components/Quizz/Counter";
 
+function intToChar(int: number) {
+  const code = "a".charCodeAt(0);
+  return String.fromCharCode(code + int);
+}
+
 const questions = [
   {
     id: 1,
@@ -66,6 +71,7 @@ const questions = [
 type StudentAnswers = {
   questionId: number;
   isCorrect: boolean;
+  answerIndex: number;
 }[];
 
 var newObj = questions.map((x) => ({ ...x, isAnswered: false }));
@@ -78,20 +84,26 @@ export function Main() {
   const nextPage = () => setCurrentIndex(currentIndex + 1);
   const previousPage = () => setCurrentIndex(currentIndex - 1);
 
-  const onClick = (correct: boolean) => {
+  const onClick = (x: any, correct: boolean) => {
     let newArr = [...data];
     newArr[currentIndex].isAnswered = true;
     setData(newArr);
 
+    const markedAnswer = currentItem.answers.indexOf(x);
+
     if (correct) {
       return setStudents([
         ...students,
-        { isCorrect: true, questionId: currentIndex },
+        {
+          isCorrect: true,
+          questionId: currentIndex,
+          answerIndex: markedAnswer,
+        },
       ]);
     }
     return setStudents([
       ...students,
-      { isCorrect: false, questionId: currentIndex },
+      { isCorrect: false, questionId: currentIndex, answerIndex: markedAnswer },
     ]);
   };
 
@@ -105,18 +117,23 @@ export function Main() {
         {currentItem.answers.map((x) => {
           const isCorrect = () => {
             if (currentItem.isAnswered) {
-              if (!students[currentIndex].isCorrect) {
+              x.correct;
+              if (
+                students[currentIndex].answerIndex ===
+                currentItem.answers.indexOf(x)
+              ) {
                 return x.correct;
               }
             }
             return null;
           };
+
           return (
             <QuizzButton
               correct={isCorrect()}
               disabled={currentItem.isAnswered}
               key={x.id}
-              onClick={() => onClick(x.correct)}
+              onClick={() => onClick(x, x.correct)}
             >
               {x.text}
             </QuizzButton>
@@ -140,10 +157,17 @@ export function Main() {
       </div>
       {currentItem.isAnswered && (
         <Paragraph
-          className="fixed bottom-24"
+          className="fixed bottom-10"
           correct={students[currentIndex].isCorrect}
         >
-          {currentItem.explanation}
+          <div>
+            Opção correta é a letra "
+            {intToChar(
+              currentItem.answers.find((x) => x.correct)?.id! - 1
+            ).toUpperCase()}
+            "
+          </div>
+          <span>{currentItem.explanation}</span>
         </Paragraph>
       )}
     </div>
