@@ -2,12 +2,14 @@ export type QuizzButtonType = {
   children: React.ReactNode;
   onClick: (correct?: boolean) => void;
   correct?: boolean | null;
+  disabled?: boolean;
 };
 
 export const QuizzButton: React.FC<QuizzButtonType> = ({
   correct = null,
   onClick,
   children,
+  disabled,
 }) => {
   const answerColor = () => {
     if (correct) return "bg-green-500 text-white border-green-500";
@@ -17,6 +19,7 @@ export const QuizzButton: React.FC<QuizzButtonType> = ({
 
   return (
     <button
+      disabled={disabled}
       className={`px-10 py-2 font-bold rounded-full border-2 w-full max-w-xs ${answerColor()}`}
       onClick={() => onClick()}
     >
