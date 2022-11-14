@@ -4,6 +4,7 @@ type ButtonType = {
   previous?: boolean;
   children: React.ReactNode;
   disabled?: boolean;
+  className?: string;
 };
 
 export const Button: React.FC<ButtonType> = ({
@@ -11,6 +12,7 @@ export const Button: React.FC<ButtonType> = ({
   next,
   previous,
   children,
+  className,
   disabled = false,
 }) => {
   const buttonClassName = () => {
@@ -21,7 +23,7 @@ export const Button: React.FC<ButtonType> = ({
   return (
     <button
       disabled={disabled}
-      className={`${buttonClassName()} px-10 py-2 rounded-sm text-white`}
+      className={`${buttonClassName()} px-10 py-2 rounded-sm text-white ${className}`}
       onClick={onClick}
     >
       {children}
